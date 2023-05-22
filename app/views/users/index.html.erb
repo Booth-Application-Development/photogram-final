@@ -14,24 +14,29 @@
     <th></th>
   </tr>
 
-<% @users.each do |a_user| %>
+<% @users.each do |user| %>
     <tr>  
       <td>
-        <%= a_user.id %>
+        <%= user.username %>
         
       </td>
 
       <td>
-        <%= a_user.yes/no %>  
+        <%= user.private %>  
+      </td>
+            <td>
+         
       </td>
 <% end %>
       <td>
-        <a href="/users/<%= a_user.id">Show details</a>
+        <a href="/users/<%= user.id">Show details</a>
       </td>
       
     </tr>
  
 </table>
+
+
 
 
   

@@ -5,6 +5,8 @@
 #  id              :integer          not null, primary key
 #  email           :string
 #  password_digest :string
+#  private         :boolean          default(FALSE)
+#  username        :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
