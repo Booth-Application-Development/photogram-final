@@ -4,6 +4,7 @@
 #
 #  id              :integer          not null, primary key
 #  email           :string
+#  follow          :boolean
 #  password_digest :string
 #  private         :boolean          default(FALSE)
 #  username        :string
