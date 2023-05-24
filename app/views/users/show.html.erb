@@ -1,0 +1,48 @@
+<div class="row mb-3">
+  <div class="col-md-8 offset-md-2">
+    <h1>
+      <%= @user.username %>
+    </h1>
+
+    <dl>
+      <dt>Private</dt>
+      <dd><%= @user.private ? "Yes" : "No" %></dd>
+
+      <dt>Followers</dt>
+      <dd>
+        0
+        <h4>Pending follow requests</h4>
+        <ul></ul>
+      </dd>
+
+      <dt>Following</dt>
+      <dd>0</dd>
+
+      <dt>Edit user</dt>
+      <dd>
+        <form action="/modify_user/132" method="post">
+          <label for="browser_username">Username</label>
+          <input id="browser_username" type="text" name="query_username" placeholder="Enter a username..." value="erik">
+
+          <label for="browser_private">Private?</label>
+          <input id="browser_private" type="checkbox" name="query_private">
+
+          <button>Update user</button>
+        </form>
+      </dd>
+    </dl>
+
+    <% if session[:user_id].present? && session[:user_id] != @user.id %>
+      <form action="/insert_follow_request" method="post">
+        <input type="hidden" name="query_recipient_id" value="<%= @user.id %>">
+        <button type="submit">Follow</button>
+      </form>
+    <% end %>
+
+    <% if session[:user_id].present? %>
+      <p>
+        <%= link_to "My Profile", "/users/#{session[:user_id]}" %>
+      </p>
+    <% end %>
+  </div>
+</div>

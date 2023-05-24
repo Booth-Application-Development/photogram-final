@@ -43,9 +43,12 @@ class UsersController < ApplicationController
 
   def show
     the_username = params.fetch("the_username")
-    @user = User.where({ :username => the_username }).at(0)
-
-    render({ :template => "users/show.html.erb" })
+    @user = User.find_by(username: the_username)
+    if @user.nil?
+      redirect_to "/", notice: "User not found"
+      return
+    end
+    render template: "users/show.html.erb"
   end
 
   def create
