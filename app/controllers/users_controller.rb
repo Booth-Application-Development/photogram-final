@@ -1,5 +1,28 @@
 class UsersController < ApplicationController
  
+
+    def index
+      the_id = session[:user_id]
+     @current_user = User.where({ :id => the_id }).first
+      matching_users = User.all
+      @list_of_users = matching_users.order({ :username => :asc })
+      render({ :template => "user_templates/index.html.erb"})
+    end
+  
+    def show
+      the_id = session[:user_id]
+          @current_user = User.where({ :id => the_id }).first
+        @url_username = params.fetch("path_username")
+        @matching_usernames = User.where({ :username => @url_username })
+        @the_user = @matching_usernames.first
+        render({ :template => "user_templates/show.html.erb"})
+  
+
+
+        
+    end
+  
+  
   def authenticate
     un = params.fetch("input_username")
     pw = params.fetch("input_password")
@@ -43,7 +66,7 @@ class UsersController < ApplicationController
 
   def show
     the_username = params.fetch("the_username")
-    @user = User.find_by(username: the_username)
+    @user = User.where({ :username => the_username }).at(0)
     if @user.nil?
       redirect_to "/", notice: "User not found"
       return
@@ -72,16 +95,15 @@ class UsersController < ApplicationController
   end
 
   def update
-    the_id = params.fetch("the_user_id")
-    user = User.where({ :id => the_id }).at(0)
-
-
-    user.username = params.fetch("input_username")
-
-    user.save
-    
-    redirect_to("/users/#{user.username}")
+    the_id = params.fetch("modify_user")
+    matching_users = User.where({ :id => the_id})
+    the_user = matching_users.at(0)
+    input_username = params.fetch("query_username")
+    the_user.username = input_username
+    the_user.save
+    redirect_to("/users/" + the_user.username)
   end
+
 
   def destroy
     username = params.fetch("the_username")

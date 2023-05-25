@@ -5,8 +5,7 @@ Rails.application.routes.draw do
   get("/users", { :controller => "users", :action => "index" })
 
   get("/users/:the_username", { :controller => "users", :action => "show" })
-
-
+  
   # Routes for the User account:
 
   # SIGN UP FORM
@@ -35,4 +34,18 @@ Rails.application.routes.draw do
   #------------------------------
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+
+  get("/photos", { :controller => "photos", :action => "index"})
+
+  get("/photos/:path_id", { :controller => "photos", :action => "show" })
+
+  get("/delete_photo/:toast_id", { :controller => "photos", :action => "destroy" })
+
+  get("/insert_photo", { :controller => "photos", :action => "create" })
+
+  get("/update_photo/:modify_id", { :controller => "photos", :action => "update" })
+
+
+  
 end
